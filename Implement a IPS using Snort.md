@@ -18,12 +18,16 @@ Now, let’s turn this excitement into action!
 
 ---
 
-## **Step-by-Step Installation Process**  
+## **Step-by-Step Installation Process**   
 
-### **Step 1: Update and Upgrade Your System**  
-
-Before installing Snort 3, ensure your system is up to date to avoid compatibility issues.  
+1. Before installing Snort 3, ensure your system is up to date to avoid compatibility issues.  
 
 ```bash
 sudo apt update && sudo apt upgrade -y
+```
+2. Organize your installation by creating a dedicated directory for Snort.  
 
+```bash
+mkdir snort
+cd snort
+```
