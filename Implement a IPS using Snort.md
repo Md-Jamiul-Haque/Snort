@@ -134,5 +134,40 @@ make
 sudo make install
 ```
 
+### **8. Update Shared Libraries**
+```bash
+sudo ldconfig
+```
 
+### **9. Download and Install Snort 3**  
+
+Download the latest version of Snort 3. Please note that the version number (`3.5.2.0` in this example) may change over time. Check the [Snort GitHub Releases](https://github.com/snort3/snort3/releases) for the most up-to-date version and adjust the commands accordingly.  
+
+```bash
+cd ~/snort
+wget https://github.com/snort3/snort3/archive/refs/tags/3.5.2.0.tar.gz -O snort3-3.5.2.0.tar.gz
+tar -xzvf snort3-3.5.2.0.tar.gz
+cd snort3-3.5.2.0
+./configure_cmake.sh --prefix=/usr/local --enable-jemalloc
+cd build
+make
+sudo make install
+```
+
+
+### **10. Verify Snort Installation**  
+
+Now your Snort 3 installation should be complete. To verify, check the Snort version:  
+
+```bash
+/usr/local/bin/snort -v
+```
+
+### **10. Test Snort with Default Configuration**  
+
+To test your Snort installation, use the default configuration file by running the following command:  
+
+```bash
+sudo snort -c /usr/local/etc/snort/snort.lua
+```
 
