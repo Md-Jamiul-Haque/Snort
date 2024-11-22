@@ -163,7 +163,7 @@ Now your Snort 3 installation should be complete. To verify, check the Snort ver
 /usr/local/bin/snort -v
 ```
 
-### **10. Test Snort with Default Configuration**  
+### **11. Test Snort with Default Configuration**  
 
 To test your Snort installation, use the default configuration file by running the following command:  
 
@@ -171,3 +171,19 @@ To test your Snort installation, use the default configuration file by running t
 sudo snort -c /usr/local/etc/snort/snort.lua
 ```
 
+### **12. Disable Receive Offload for IPS/IDS**  
+
+When configuring Snort for both IDS and IPS, it's essential to disable both generic and large receive offload on your network adapter for optimal performance.  
+
+1. First, check your network adapter's name:  
+
+```bash
+ip a
+```
+
+2. Then, check the current offload settings for your network adapter by running:
+
+```bash
+sudo ethtool -k eth0 | grep receive-offload
+```
+(Note: Replace `eth0` with the name of your network adapter, if necessary.)
