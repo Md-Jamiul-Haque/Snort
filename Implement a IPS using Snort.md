@@ -31,3 +31,39 @@ sudo apt update && sudo apt upgrade -y
 mkdir snort
 cd snort
 ```
+3. Snort 3 requires several libraries and tools. Install them all with the following command:  
+
+```bash
+sudo apt-get install -y build-essential autotools-dev libdumbnet-dev libluajit-5.1-dev \
+libpcap-dev zlib1g-dev pkg-config libhwloc-dev cmake liblzma-dev openssl libssl-dev \
+cpputest libsqlite3-dev libtool uuid-dev git autoconf bison flex libcmocka-dev \
+libnetfilter-queue-dev libunwind-dev libmnl-dev ethtool libjemalloc-dev
+```
+### **1. Install PCRE (Perl-Compatible Regular Expressions)**  
+PCRE is crucial for pattern matching, a core part of Snort's detection engine.  
+
+```bash
+cd ~/snort
+wget https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz
+tar -xzvf pcre-8.45.tar.gz
+cd pcre-8.45
+./configure
+make
+sudo make install
+```
+### **2. Install Gperftools**  
+
+Gperftools enhances Snort’s performance monitoring and debugging capabilities.  
+
+```bash
+cd ~/snort
+wget https://github.com/gperftools/gperftools/releases/download/gperftools-2.9.1/gperftools-2.9.1.tar.gz
+tar -xzvf gperftools-2.9.1.tar.gz
+cd gperftools-2.9.1
+./configure
+make
+sudo make install
+```
+
+
+
