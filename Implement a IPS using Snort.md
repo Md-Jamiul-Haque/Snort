@@ -248,3 +248,20 @@ Save and exit the editor (CTRL+X, then Y to confirm, and Enter to save).
 - `msg:"ICMP Detected"`: This is the message that will appear in the alert when this rule is triggered.
 - `sid:1000001`: This is the unique Snort ID (SID) assigned to this rule. It helps to uniquely identify the rule.
 
+Let's create a rule that generates an alert whenever SSH (Secure Shell) traffic is detected on the network.
+
+```bash
+alert tcp any any -> any 22 (msg:"SSH Traffic Detected"; sid:1000002; )
+```
+
+Before running Snort, it's a good idea to validate the syntax of the rules you created to ensure there are no errors. Snort provides a built-in feature to validate the configuration and rules.
+Run the following command to validate the configuration and rules:
+
+```bash
+sudo snort -c /usr/local/etc/snort/snort.lua -R /usr/local/etc/rules/local.rules
+```
+Explanation of the Command:
+`-c /usr/local/etc/snort/snort.lua`: Specifies the Snort configuration file to use.
+`-R /usr/local/etc/rules/local.rules`: Loads and validates the custom rules from the local.rules file.
+
+If everything is correct, Snort will confirm that the configuration and rules are valid without showing any errors.
