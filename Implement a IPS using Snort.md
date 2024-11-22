@@ -265,3 +265,75 @@ Explanation of the Command:
 `-R /usr/local/etc/rules/local.rules`: Loads and validates the custom rules from the local.rules file.
 
 If everything is correct, Snort will confirm that the configuration and rules are valid without showing any errors.
+
+It's time to see your Snort IDS in action! We'll use a ping command to test the ICMP detection rule.
+
+Start Snort with your configuration, custom rules, and network interface:
+
+```bash
+sudo snort -c /usr/local/etc/snort/snort.lua -R /usr/local/etc/rules/local.rules -i eth0 -A console
+```
+`-i eth0`: Specifies the network interface to monitor (replace eth0 with your actual network adapter if different).
+`-A console`: Outputs alerts to the console for real-time monitoring.
+
+From another machine, we'll ping our Ubuntu machine:
+```bash
+ping 10.27.221.230
+```
+Watch the Snort console output. If everything is set up correctly, you'll see an alert similar to this:
+<p align="center">
+<img src="" width="60%"/>
+</p>
+
+This confirms that Snort has detected the ICMP traffic based on our custom rule.
+
+We can also test the SSH rule by initiating an SSH connection to our Ubuntu machine and observing the alert in the Snort console.
+
+To test the SSH rule, we need to establish an SSH connection to our Ubuntu machine from another system.
+
+   First, make sure the SSH server is installed and running on your Ubuntu machine.
+
+   - Install the SSH server if it’s not already installed:
+
+     ```bash
+     sudo apt-get install -y openssh-server
+     ```
+
+   - Start the SSH service:
+
+     ```bash
+     sudo systemctl start ssh
+     ```
+
+   - Enable SSH to start on boot:
+
+     ```bash
+     sudo systemctl enable ssh
+     ```
+
+Find Your Ubuntu Machine's IP Address
+
+Look for the IP address associated with your network adapter (e.g., eth0).
+
+Connect to the Ubuntu Machine via SSH
+From another machine (Linux, macOS, or Windows using an SSH client), run the following command:
+
+```bash
+ssh <username>@<ubuntu_machine_ip>
+```
+Replace `<username>` with the username of the account on the Ubuntu machine, and `<ubuntu_machine_ip>` with the IP address you found earlier.
+
+
+To simplify running Snort and avoid specifying the local rules path every time, you can modify the `snort.lua` configuration file to enable built-in rules for IPS and include the path to your local rules file.
+
+1. **Edit the `snort.lua` Configuration File**  
+   Open the `snort.lua` file in a text editor:
+
+   ```bash
+   sudo nano /usr/local/etc/snort/snort.lua
+   ```
+
+   Locate the section for `ips` in the configuration file(`CTRL+W` then search for ips).Uncomment or modify the line to enable IPS built-in rules and include the Path to Local Rules:
+   <p align="center">
+   <img src="" width="60%"/>
+   </p>
