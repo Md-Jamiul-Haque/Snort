@@ -187,3 +187,64 @@ ip a
 sudo ethtool -k eth0 | grep receive-offload
 ```
 (Note: Replace `eth0` with the name of your network adapter, if necessary.)
+
+To disable Large Receive Offload (LRO) and Generic Receive Offload (GRO), modify the `ethtool` service configuration. Follow these steps:
+
+1. Open the `ethtool.service` file in a text editor:  
+
+```bash
+sudo nano /lib/systemd/ethtool.service
+```
+2. Add the following configuration to disable LRO and GRO, replacing `<network adapter>` with the name of your network adapter (e.g., eth0):
+```bash
+[Unit]
+Description=Ethtool Configuration for Network Interface
+
+[Service]
+Requires=network.target
+Type=oneshot
+ExecStart=/sbin/ethtool -K <network adapter> gro off
+ExecStart=/sbin/ethtool -K <network adapter> lro off
+
+[Install]
+WantedBy=multi-user.target
+```
+
+After modifying the `ethtool` service configuration, enable and start the service to apply the changes:
+
+1. Enable the service to start on boot:
+
+```bash
+sudo systemctl enable ethtool
+```
+2. Start the service
+```bash
+sudo service ethtool start
+```
+
+### **1. Create a Local Rules File**  
+
+Now, let's create a local rules file where you can add your custom Snort rules:
+
+1. Create the `local.rules` file in the Snort configuration directory:
+
+```bash
+sudo mkdir /usr/local/etc/rules
+sudo nano /usr/local/etc/rules/local.rules
+```
+This will create the local.rules file, where you can add your custom detection rules for Snort.
+
+Let's create a simple Snort rule that generates an alert whenever an ICMP (Internet Control Message Protocol) packet is detected on the network.
+```bash
+alert icmp any any -> any any (msg:"ICMP Detected"; sid:1000001; )
+```
+Save and exit the editor (CTRL+X, then Y to confirm, and Enter to save).
+
+**Explanation of the Rule:**
+
+- `alert`: This is the action to take when the rule is triggered (in this case, generate an alert).
+- `icmp`: This specifies the protocol that we are inspecting (ICMP).
+- `any any -> any any`: This means the rule will match any ICMP packet, regardless of the source or destination IP address or port.
+- `msg:"ICMP Detected"`: This is the message that will appear in the alert when this rule is triggered.
+- `sid:1000001`: This is the unique Snort ID (SID) assigned to this rule. It helps to uniquely identify the rule.
+
