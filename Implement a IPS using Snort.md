@@ -65,5 +65,74 @@ make
 sudo make install
 ```
 
+### **3. Install Ragel**  
+
+Ragel generates finite state machines used in Snort's parsing processes.  
+
+```bash
+cd ~/snort
+wget http://www.colm.net/files/ragel/ragel-6.10.tar.gz
+tar -xzvf ragel-6.10.tar.gz
+cd ragel-6.10
+./configure
+make
+sudo make install
+```
+
+### **4. Download (But Don’t Install) Boost C++ Libraries**  
+
+Boost provides critical C++ utilities used in Snort's operation.  
+
+```bash
+cd ~/snort
+wget https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.gz
+tar -xvzf boost_1_77_0.tar.gz
+```
+
+### **5. Install Hyperscan**  
+
+Hyperscan is a high-performance regex matching library, essential for Snort's pattern matching.  
+
+```bash
+cd ~/snort
+wget https://github.com/intel/hyperscan/archive/refs/tags/v5.4.2.tar.gz
+tar -xzvf v5.4.2.tar.gz
+mkdir ~/snort/hyperscan-5.4.2-build
+cd hyperscan-5.4.2-build/
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DBOOST_ROOT=~/snort/boost_1_77_0/ ../hyperscan-5.4.2
+make
+sudo make install
+```
+
+### **6. Install Flatbuffers**  
+
+Flatbuffers enable efficient serialization for Snort.  
+
+```bash
+cd ~/snort
+wget https://github.com/google/flatbuffers/archive/refs/tags/v2.0.0.tar.gz -O flatbuffers-v2.0.0.tar.gz
+tar -xzvf flatbuffers-v2.0.0.tar.gz
+mkdir flatbuffers-build
+cd flatbuffers-build
+cmake ../flatbuffers-2.0.0
+make
+sudo make install
+```
+
+### **7. Install Data Acquisition (DAQ)**  
+
+DAQ manages packet capture for Snort, ensuring smooth traffic analysis.  
+
+```bash
+cd ~/snort
+wget https://github.com/snort3/libdaq/archive/refs/tags/v3.0.13.tar.gz -O libdaq-3.0.13.tar.gz
+tar -xzvf libdaq-3.0.13.tar.gz
+cd libdaq-3.0.13
+./bootstrap
+./configure
+make
+sudo make install
+```
+
 
 
