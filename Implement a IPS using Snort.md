@@ -125,9 +125,9 @@ DAQ manages packet capture for Snort, ensuring smooth traffic analysis.
 
 ```bash
 cd ~/snort
-wget https://github.com/snort3/libdaq/archive/refs/tags/v3.0.13.tar.gz -O libdaq-3.0.13.tar.gz
-tar -xzvf libdaq-3.0.13.tar.gz
-cd libdaq-3.0.13
+wget https://github.com/snort3/libdaq/archive/refs/tags/v3.0.17.tar.gz -O libdaq-3.0.17.tar.gz
+tar -xzvf libdaq-3.0.17.tar.gz
+cd libdaq-3.0.17
 ./bootstrap
 ./configure
 make
@@ -141,13 +141,13 @@ sudo ldconfig
 
 ### **9. Download and Install Snort 3**  
 
-Download the latest version of Snort 3. Please note that the version number (`3.5.2.0` in this example) may change over time. Check the [Snort GitHub Releases](https://github.com/snort3/snort3/releases) for the most up-to-date version and adjust the commands accordingly.  
+Download the latest version of Snort 3. Please note that the version number (`3.5.1.0` in this example) may change over time. Check the [Snort GitHub Releases](https://github.com/snort3/snort3/releases) for the most up-to-date version and adjust the commands accordingly.  
 
 ```bash
 cd ~/snort
-wget https://github.com/snort3/snort3/archive/refs/tags/3.5.2.0.tar.gz -O snort3-3.5.2.0.tar.gz
-tar -xzvf snort3-3.5.2.0.tar.gz
-cd snort3-3.5.2.0
+wget https://github.com/snort3/snort3/archive/refs/tags/3.5.1.0.tar.gz -O snort3-3.5.1.0.tar.gz
+tar -xzvf snort3-3.5.1.0.tar.gz
+cd snort3-3.5.1.0
 ./configure_cmake.sh --prefix=/usr/local --enable-jemalloc
 cd build
 make
@@ -163,6 +163,10 @@ Now your Snort 3 installation should be complete. To verify, check the Snort ver
 /usr/local/bin/snort -v
 ```
 
+<p align="center">
+<img src="https://github.com/Md-Jamiul-Haque/Snort/blob/main/Pictures/snort-version.PNG" width="60%" />
+</p>
+
 ### **11. Test Snort with Default Configuration**  
 
 To test your Snort installation, use the default configuration file by running the following command:  
@@ -170,6 +174,10 @@ To test your Snort installation, use the default configuration file by running t
 ```bash
 sudo snort -c /usr/local/etc/snort/snort.lua
 ```
+
+<p align="center">
+<img src="https://github.com/Md-Jamiul-Haque/Snort/blob/main/Pictures/test-deafult-conf.PNG" width="60%" />
+</p>
 
 ### **12. Disable Receive Offload for IPS/IDS**  
 
@@ -282,7 +290,7 @@ ping 10.27.221.230
 ```
 Watch the Snort console output. If everything is set up correctly, you'll see an alert similar to this:
 <p align="center">
-<img src="" width="60%"/>
+<img src="https://github.com/Md-Jamiul-Haque/Snort/blob/main/Pictures/ICMP-detected.PNG" width="90%"/>
 </p>
 
 This confirms that Snort has detected the ICMP traffic based on our custom rule.
@@ -322,7 +330,10 @@ From another machine (Linux, macOS, or Windows using an SSH client), run the fol
 ssh <username>@<ubuntu_machine_ip>
 ```
 Replace `<username>` with the username of the account on the Ubuntu machine, and `<ubuntu_machine_ip>` with the IP address you found earlier.
-
+<p align="center">
+<img src="https://github.com/Md-Jamiul-Haque/Snort/blob/main/Pictures/ssh-detected.PNG" width="90%" />
+</p>
+This confirms that Snort has detected the SSH traffic based on our custom rule.
 
 To simplify running Snort and avoid specifying the local rules path every time, you can modify the `snort.lua` configuration file to enable built-in rules for IPS and include the path to your local rules file.
 
